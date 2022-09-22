@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.github.dcendents.android-maven'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'fudi-nfc'
+
+    publishedGroupId = 'com.romellfudi.fudinfc'
+    libraryName = 'FudiNFC'
+    artifact = 'fudi-nfc'
+
+    libraryDescription = 'NFC Reader And Writer using Android devices'
+
+    siteUrl = 'https://romellfudi.github.io/FudiNFC'
+    gitUrl = 'https://github.com/romellfudi/FudiNFC.git'
+
+    libraryVersion = '1.2.0'
+
+    developerId = 'romellfudi'
+    developerName = 'Romell Dominguez'
+    developerEmail = 'romllz489@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+android {
+    compileSdkVersion 32
+
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 32
+        versionCode 1
+        versionName libraryVersion
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation "androidx.core:core-ktx:1.7.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+task deleteJar(type: Delete) {
+    delete "libs/fudi-nfc-${libraryVersion}.jar"
+}
+
+task createJar(type: Copy) {
+    from('build/intermediates/bundles/debug/') // release
+    into('../app/libs')
+    include('classes.jar')
+    rename('classes.jar', "fudi-nfc-$libraryVersion}.jar")
+}
+
+createJar.dependsOn(deleteJar, build)
+
+//apply from: 'https://raw.githubusercontent.com/romellfudi/assets/bintray/artifactory_bintray.gradle'
+//apply from: 'https://raw.githubusercontent.com/romellfudi/assets/bintray/artifactory_install.gradle'
+repositories {
+    mavenCentral()
+}
