@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ru.ertel.mobilecotroller.app" >
+    package="ru.ertel.mobilecontroller.app" >
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -23,19 +23,19 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label" >
         <activity
-            android:name="ru.ertel.mobilecotroller.app.view.ManualActivity"
-            android:parentActivityName="ru.ertel.mobilecotroller.app.view.MainActivity" />
+            android:name="ru.ertel.mobilecontroller.app.view.ManualActivity"
+            android:parentActivityName="ru.ertel.mobilecontroller.app.view.MainActivity" />
         <activity
-            android:name="ru.ertel.mobilecotroller.app.view.SettingsActivity"
-            android:parentActivityName="ru.ertel.mobilecotroller.app.view.MainActivity" />
+            android:name="ru.ertel.mobilecontroller.app.view.SettingsActivity"
+            android:parentActivityName="ru.ertel.mobilecontroller.app.view.MainActivity" />
         <activity
-            android:name="ru.ertel.mobilecotroller.app.view.AboutActivity"
-            android:parentActivityName="ru.ertel.mobilecotroller.app.view.MainActivity" />
+            android:name="ru.ertel.mobilecontroller.app.view.AboutActivity"
+            android:parentActivityName="ru.ertel.mobilecontroller.app.view.MainActivity" />
         <activity
-            android:name="ru.ertel.mobilecotroller.app.view.ScanCardActivity"
-            android:parentActivityName="ru.ertel.mobilecotroller.app.view.MainActivity" />
+            android:name="ru.ertel.mobilecontroller.app.view.ScanCardActivity"
+            android:parentActivityName="ru.ertel.mobilecontroller.app.view.MainActivity" />
         <activity
-            android:name="ru.ertel.mobilecotroller.app.view.MainActivity"
+            android:name="ru.ertel.mobilecontroller.app.view.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

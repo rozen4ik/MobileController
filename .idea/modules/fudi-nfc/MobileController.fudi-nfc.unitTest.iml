@@ -62,9 +62,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3273fc4c35920e2670cd7db47dbdaaeb/jetified-kotlin-stdlib-1.6.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1bf01ca3ec0a17409b1b114afccad0a3/jetified-annotations-13.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f2b7f1f7cad1a0b7850cbe3fb4738a0/jetified-kotlin-stdlib-common-1.6.10.jar</arg>
-                <arg>$MODULE_DIR$/../../../fudi-nfc/build/intermediates/javac/debug/classes</arg>
-                <arg>$MODULE_DIR$/../../../fudi-nfc/build/tmp/kotlin-classes/debug</arg>
-                <arg>$USER_HOME$/Library/Android/sdk/platforms/android-32/android.jar</arg>
+                <arg>$USER_HOME$/Android/Sdk/platforms/android-32/android.jar</arg>
               </args>
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../../fudi-nfc/build/tmp/kotlin-classes/debugUnitTest" />
