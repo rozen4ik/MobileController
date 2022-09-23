@@ -44,7 +44,6 @@ class MainActivity : NfcAct(), KoinComponent {
         var resultScanInfoCard = intent?.extras?.getString(ScanCardActivity.SCANINFOCARD)
         val dataSourceCard = DataSourceCard()
         val konturController = KonturController()
-        var url = ""
         var messageInfoCard =
             "<?xml version=\"1.0\" encoding=\"windows1251\" ?>" +
                     "<spd-xml-api>" +
@@ -57,11 +56,12 @@ class MainActivity : NfcAct(), KoinComponent {
 
         infoCard.setOnClickListener {
             val intent = Intent(this@MainActivity, ScanCardActivity::class.java)
-            checkCameraPermission(intent)
+            startActivity(intent)
+            finish()
         }
 
         if (resultScanInfoCard != null) {
-            url = "$bodyURL/spd-xml-api"
+            val url = "$bodyURL/spd-xml-api"
             updateInfo(konturController, dataSourceCard, url, messageInfoCard)
             bundle.putString("condition", dataSourceCard.getInfoCard().condition)
             bundle.putString("number", dataSourceCard.getInfoCard().number)
@@ -117,19 +117,19 @@ class MainActivity : NfcAct(), KoinComponent {
         }
     }
 
-    private fun checkCameraPermission(intent: Intent) {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.CAMERA), 12)
-        } else {
-            startActivity(intent)
-            finish()
-        }
-    }
+//    private fun checkCameraPermission(intent: Intent) {
+//        if (ContextCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.CAMERA
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(this,
+//                arrayOf(Manifest.permission.CAMERA), 12)
+//        } else {
+//            startActivity(intent)
+//            finish()
+//        }
+//    }
 
     private fun openFragment(fragment: Fragment) {
         supportFragmentManager

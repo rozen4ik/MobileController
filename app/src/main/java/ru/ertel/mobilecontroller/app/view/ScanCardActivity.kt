@@ -9,8 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.widget.Toast
-import com.budiyev.android.codescanner.*
+import android.widget.TextView
 import ru.ertel.mobilecontroller.gear.NfcAct
 import java.math.BigInteger
 import ru.ertel.mobilecontroller.app.R
@@ -22,80 +21,26 @@ class ScanCardActivity : NfcAct() {
     }
 
     private var resScan = ""
+    private lateinit var textStatusScan: TextView
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var codeScanner: CodeScanner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan_card)
-        val scannerView = findViewById<CodeScannerView>(R.id.scanner_view)
 
         val fromCamera = intent.extras?.getString(SCANINFOCARD)
         resScan = fromCamera.toString()
         mediaPlayer = MediaPlayer.create(this, R.raw.payment_succes)
-
-        codeScanner = CodeScanner(this, scannerView)
-
-        codeScanner.camera = CodeScanner.CAMERA_BACK
-        codeScanner.formats = CodeScanner.ALL_FORMATS
-        codeScanner.autoFocusMode = AutoFocusMode.SAFE
-        codeScanner.scanMode = ScanMode.SINGLE
-        codeScanner.isAutoFocusEnabled = true
-        codeScanner.isFlashEnabled = false
-
-
-        codeScanner.decodeCallback = DecodeCallback {
-            runOnUiThread {
-                vibroFone()
-                val intent = Intent(this@ScanCardActivity, MainActivity::class.java)
-                if (resScan == "/") {
-                    intent.putExtra(SCANINFOCARD, "${it.text}/")
-                } else {
-                    intent.putExtra(SCANINFOCARD, it.text)
-                }
-                startActivity(intent)
-                finish()
-            }
-        }
-        codeScanner.errorCallback = ErrorCallback {
-            runOnUiThread {
-                Toast.makeText(this, "Camera initialization error: ${it.message}",
-                    Toast.LENGTH_LONG).show()
-            }
-        }
-
-        scannerView.setOnClickListener {
-            codeScanner.startPreview()
-        }
+        textStatusScan = findViewById(R.id.textStatusScan)
     }
-
-    override fun onResume() {
-        super.onResume()
-        codeScanner.startPreview()
-    }
-
-    override fun onPause() {
-        codeScanner.releaseResources()
-        super.onPause()
-    }
-
-//    override fun handleResult(result : Result?) {
-//        vibroFone()
-//        val intent = Intent(this@ScanCardActivity, MainActivity::class.java)
-//        if (resScan == "/") {
-//            intent.putExtra(SCANINFOCARD, "${result?.contents}/")
-//        } else {
-//            intent.putExtra(SCANINFOCARD, result?.contents)
-//        }
-//        startActivity(intent)
-//        finish()
-//    }
 
     public override fun onNewIntent(paramIntent: Intent) {
         super.onNewIntent(paramIntent)
         val dataFull = getMAC(intent.getParcelableExtra(NfcAdapter.EXTRA_TAG) as? Tag).replace(":", "")
+        textStatusScan.text = "Идет сканирование, не убирайте карту!"
         val decimalString = BigInteger(dataFull, 16).toString()
         vibroFone()
+        textStatusScan.text = "Данные отсканированны!"
         val intent = Intent(this@ScanCardActivity, MainActivity::class.java)
         if (resScan == "/") {
             intent.putExtra(SCANINFOCARD, "${decimalString}/")
