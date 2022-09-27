@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.dcendents.android-maven'
 
 ext {
     bintrayRepo = 'maven'
@@ -31,8 +30,6 @@ android {
     defaultConfig {
         minSdkVersion 18
         targetSdkVersion 32
-        versionCode 1
-        versionName libraryVersion
     }
     buildTypes {
         release {
@@ -40,6 +37,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    namespace 'com.romellfudi.fudinfc'
 }
 
 dependencies {

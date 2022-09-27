@@ -1,6 +1,5 @@
 package ru.ertel.mobilecontroller.app.view
 
-import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -9,8 +8,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ru.ertel.mobilecontroller.app.R
 import kotlinx.coroutines.launch
@@ -27,10 +24,13 @@ class MainActivity : NfcAct(), KoinComponent {
     private var messageAnswerKontur = ""
     private lateinit var infoCard: Button
     private val infoCardFragment: InfoCardFragment = InfoCardFragment()
+    private val startFragment: StartFragment = StartFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        openFragment(startFragment)
 
         infoCard = findViewById(R.id.infoCard)
 
@@ -63,13 +63,9 @@ class MainActivity : NfcAct(), KoinComponent {
         if (resultScanInfoCard != null) {
             val url = "$bodyURL/spd-xml-api"
             updateInfo(konturController, dataSourceCard, url, messageInfoCard)
-            bundle.putString("condition", dataSourceCard.getInfoCard().condition)
-            bundle.putString("number", dataSourceCard.getInfoCard().number)
-            bundle.putString("ruleOfUse", dataSourceCard.getInfoCard().ruleOfUse)
-            bundle.putString("permittedRates", dataSourceCard.getInfoCard().permittedRates)
-            bundle.putString("startAction", dataSourceCard.getInfoCard().startAction)
-            bundle.putString("endAction", dataSourceCard.getInfoCard().endAction)
-            bundle.putString("balance", dataSourceCard.getInfoCard().balance)
+            bundle.putString("idCard", resultScanInfoCard)
+            bundle.putString("packageArray", dataSourceCard.getPackageArray().toString())
+            bundle.putString("url", url)
             infoCardFragment.arguments = bundle
             openFragment(infoCardFragment)
         }
@@ -116,20 +112,6 @@ class MainActivity : NfcAct(), KoinComponent {
             }
         }
     }
-
-//    private fun checkCameraPermission(intent: Intent) {
-//        if (ContextCompat.checkSelfPermission(
-//                this,
-//                Manifest.permission.CAMERA
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            ActivityCompat.requestPermissions(this,
-//                arrayOf(Manifest.permission.CAMERA), 12)
-//        } else {
-//            startActivity(intent)
-//            finish()
-//        }
-//    }
 
     private fun openFragment(fragment: Fragment) {
         supportFragmentManager

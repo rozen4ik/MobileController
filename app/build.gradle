@@ -11,7 +11,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 32
         versionCode 3
-        versionName "0.1.0"
+        versionName "0.2.0"
     }
     buildTypes {
         release {
@@ -29,6 +29,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'ru.ertel.mobilecontroller.app'
 }
 
 

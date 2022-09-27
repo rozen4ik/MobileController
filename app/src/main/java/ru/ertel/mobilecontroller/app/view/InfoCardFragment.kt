@@ -1,56 +1,78 @@
 package ru.ertel.mobilecontroller.app.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import ru.ertel.mobilecontroller.app.R
+
 
 class InfoCardFragment : Fragment() {
 
-    private var condition = ""
-    private var number = ""
-    private var ruleOfUse = ""
-    private var permittedRates = ""
-    private var startAction = ""
-    private var endAction = ""
-    private var balance = ""
+    private lateinit var idCard: String
+    private lateinit var idPackage: String
+    private lateinit var url: String
+    private lateinit var packageArray: String
+    private lateinit var packages: Array<String>
+    private var detailPackageFragment = DetailPackageFragment
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        condition = arguments?.getString("condition").toString()
-        number = arguments?.getString("number").toString()
-        ruleOfUse = arguments?.getString("ruleOfUse").toString()
-        permittedRates = arguments?.getString("permittedRates").toString()
-        startAction = arguments?.getString("startAction").toString()
-        endAction = arguments?.getString("endAction").toString()
-        balance = arguments?.getString("balance").toString()
+        idCard = arguments?.getString("idCard").toString()
+        url = arguments?.getString("url").toString()
+        packageArray = arguments?.getString("packageArray").toString()
+        if (packageArray != "{Данные не=найдены}") {
+            packageArray = packageArray.replace("=", ": ")
+            packageArray = packageArray.replace("{", "").replace("}", "")
+            packages = packageArray.split(", ").toTypedArray()
+        }
         return inflater.inflate(R.layout.fragment_info_card, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val nameBar: TextView = view.findViewById(R.id.nameBar)
-        val textCondition: TextView = view.findViewById(R.id.textCondition)
-        val textNumber: TextView = view.findViewById(R.id.textNumber)
-        val textRuleOfUse: TextView = view.findViewById(R.id.textRuleOfUse)
-        val textPermittedRates: TextView = view.findViewById(R.id.textPermittedRates)
-        val textStartAction: TextView = view.findViewById(R.id.textStartAction)
-        val textEndAction: TextView = view.findViewById(R.id.textEndAction)
-        val textBalance: TextView = view.findViewById(R.id.textBalance)
-        nameBar.text = "Информация о индефикаторе --$number--"
-        textCondition.text = condition
-        textNumber.text = number
-        textRuleOfUse.text = ruleOfUse
-        textPermittedRates.text = permittedRates
-        textStartAction.text = startAction
-        textEndAction.text = endAction
-        textBalance.text = balance
+        val listPackage: ListView = view.findViewById(R.id.packageList)
+        if (packageArray != "{Данные не=найдены}") {
+            val adapter = activity?.let {
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_list_item_activated_1,
+                    packages.toList()
+                )
+            }
+            listPackage.adapter = adapter
+            listPackage.setOnItemClickListener { _, itemClicked, _, _ ->
+                idPackage = (itemClicked as TextView).text.toString().substringBefore(":")
+                openFragment(detailPackageFragment.newInstance(idCard, idPackage, url))
+            }
+        } else {
+            val noData: TextView = view.findViewById(R.id.textView3)
+            noData.text = "Данные не найдены"
+            listPackage.visibility = View.GONE
+        }
+    }
+
+
+    private fun openFragment(fragment: Fragment) {
+        val activityName = activity?.componentName.toString()
+        if (activityName.contains("MainActivity")) {
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.place_fragments, fragment)
+                ?.commit()
+        } else if (activityName.contains("ManualActivity")) {
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.placeManualFragments, fragment)
+                ?.commit()
+        }
     }
 
     companion object {

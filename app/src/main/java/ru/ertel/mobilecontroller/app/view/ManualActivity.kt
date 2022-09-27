@@ -16,7 +16,6 @@ import kotlinx.coroutines.runBlocking
 import ru.ertel.mobilecontroller.app.R
 import ru.ertel.mobilecontroller.app.controller.KonturController
 import ru.ertel.mobilecontroller.app.data.DataSourceCard
-import ru.ertel.mobilecontroller.app.data.DataSourceCatalogPackage
 
 class ManualActivity : AppCompatActivity() {
 
@@ -60,16 +59,9 @@ class ManualActivity : AppCompatActivity() {
             )
             val url = "$bodyURL/spd-xml-api"
             updateInfoCard(konturController, dataSourceCard, url, messageInfoCard)
-            bundle.putString("condition", dataSourceCard.getInfoCard().condition)
-            bundle.putString("number", dataSourceCard.getInfoCard().number)
-            bundle.putString("ruleOfUse", dataSourceCard.getInfoCard().ruleOfUse)
-            bundle.putString(
-                "permittedRates",
-                dataSourceCard.getInfoCard().permittedRates
-            )
-            bundle.putString("startAction", dataSourceCard.getInfoCard().startAction)
-            bundle.putString("endAction", dataSourceCard.getInfoCard().endAction)
-            bundle.putString("balance", dataSourceCard.getInfoCard().balance)
+            bundle.putString("idCard", editNumberCard.text.toString())
+            bundle.putString("packageArray", dataSourceCard.getPackageArray().toString())
+            bundle.putString("url", url)
             infoCardFragment.arguments = bundle
             openFragment(infoCardFragment)
         }
@@ -97,6 +89,13 @@ class ManualActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private fun removeFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .remove(fragment)
+            .commit()
     }
 
     private fun openFragment(fragment: Fragment) {
