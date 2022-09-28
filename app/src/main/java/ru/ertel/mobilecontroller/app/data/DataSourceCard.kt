@@ -14,22 +14,33 @@ class DataSourceCard {
 
 
     fun setMessageInfoCard(message: String) {
-        if (getValidMessage(message)) {
-            packages = getPackages(message).split("/>").toTypedArray()
-            var count = 0
-            while (packages.size-1 > count) {
-                if (packages[count].contains("<package id=", ignoreCase = true)) {
-                    packagesArray.put(getId(packages[count]), getName(packages[count]))
-                    count++
+        if (getAnswerLicense(message)) {
+            if (getValidMessage(message)) {
+                packages = getPackages(message).split("/>").toTypedArray()
+                var count = 0
+                while (packages.size-1 > count) {
+                    if (packages[count].contains("<package id=", ignoreCase = true)) {
+                        packagesArray.put(getId(packages[count]), getName(packages[count]))
+                        count++
+                    }
                 }
+            } else {
+                packagesArray.put("Данные не", "найдены")
             }
         } else {
-            packagesArray.put("Данные не", "найдены")
+            packagesArray.put("Пиратская", "копия")
         }
     }
 
     fun getPackageArray(): HashMap<String, String> {
         return packagesArray
+    }
+
+    private fun getAnswerLicense(message: String): Boolean {
+        // Проверка на лицензию, указывается номер лицензии контура,
+        // при попытке использовать приложение на другом сервер,
+        // поступит сообщение о использовании пиратской версии
+        return message.contains("<attribute name=\"license\"  value=\"1203\" />")
     }
 
     private fun getValidMessage(message: String): Boolean {

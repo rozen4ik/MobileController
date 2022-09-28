@@ -59,11 +59,17 @@ class ManualActivity : AppCompatActivity() {
             )
             val url = "$bodyURL/spd-xml-api"
             updateInfoCard(konturController, dataSourceCard, url, messageInfoCard)
-            bundle.putString("idCard", editNumberCard.text.toString())
-            bundle.putString("packageArray", dataSourceCard.getPackageArray().toString())
-            bundle.putString("url", url)
-            infoCardFragment.arguments = bundle
-            openFragment(infoCardFragment)
+            if (dataSourceCard.getPackageArray().toString() == "{Пиратская=копия}") {
+                val intent = Intent(this@ManualActivity, LicenseActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                bundle.putString("idCard", editNumberCard.text.toString())
+                bundle.putString("packageArray", dataSourceCard.getPackageArray().toString())
+                bundle.putString("url", url)
+                infoCardFragment.arguments = bundle
+                openFragment(infoCardFragment)
+            }
         }
     }
 

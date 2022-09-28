@@ -5,8 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
-
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -16,22 +15,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:replace="android:label" >
+        tools:replace="android:label">
         <activity
-            android:name="ru.ertel.mobilecontroller.app.view.ManualActivity"
-            android:parentActivityName="ru.ertel.mobilecontroller.app.view.MainActivity" />
+            android:name=".view.LicenseActivity"
+            android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name="ru.ertel.mobilecontroller.app.view.SettingsActivity"
-            android:parentActivityName="ru.ertel.mobilecontroller.app.view.MainActivity" />
+            android:name=".view.ManualActivity"
+            android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name="ru.ertel.mobilecontroller.app.view.AboutActivity"
-            android:parentActivityName="ru.ertel.mobilecontroller.app.view.MainActivity" />
+            android:name=".view.SettingsActivity"
+            android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name="ru.ertel.mobilecontroller.app.view.ScanCardActivity"
-            android:parentActivityName="ru.ertel.mobilecontroller.app.view.MainActivity" />
+            android:name=".view.AboutActivity"
+            android:parentActivityName=".view.MainActivity" />
         <activity
-            android:name="ru.ertel.mobilecontroller.app.view.MainActivity"
-            android:exported="true" >
+            android:name=".view.ScanCardActivity"
+            android:parentActivityName=".view.MainActivity" />
+        <activity
+            android:name=".view.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

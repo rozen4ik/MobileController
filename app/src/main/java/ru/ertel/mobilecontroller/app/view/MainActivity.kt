@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -63,11 +64,17 @@ class MainActivity : NfcAct(), KoinComponent {
         if (resultScanInfoCard != null) {
             val url = "$bodyURL/spd-xml-api"
             updateInfo(konturController, dataSourceCard, url, messageInfoCard)
-            bundle.putString("idCard", resultScanInfoCard)
-            bundle.putString("packageArray", dataSourceCard.getPackageArray().toString())
-            bundle.putString("url", url)
-            infoCardFragment.arguments = bundle
-            openFragment(infoCardFragment)
+            if (dataSourceCard.getPackageArray().toString() == "{Пиратская=копия}") {
+                val intent = Intent(this@MainActivity, LicenseActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                bundle.putString("idCard", resultScanInfoCard)
+                bundle.putString("packageArray", dataSourceCard.getPackageArray().toString())
+                bundle.putString("url", url)
+                infoCardFragment.arguments = bundle
+                openFragment(infoCardFragment)
+            }
         }
         enableBeam()
     }
