@@ -121,7 +121,7 @@ class ManualActivity : AppCompatActivity() {
             launch(newSingleThreadContext("MyOwnThread")) {
                 try {
                     messageAnswerKontur = konturController.requestPOST(url, messageInfoCard)
-                    dataSourceCard.setMessageInfoCard(messageAnswerKontur)
+                    dataSourceCard.setMessageInfoPackage(messageAnswerKontur)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

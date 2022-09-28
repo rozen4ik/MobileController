@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -137,7 +136,7 @@ class MainActivity : NfcAct(), KoinComponent {
             launch(newSingleThreadContext("MyOwnThread")) {
                 try {
                     messageAnswerKontur = konturController.requestPOST(url, messageInfoCard)
-                    dataSourceCard.setMessageInfoCard(messageAnswerKontur)
+                    dataSourceCard.setMessageInfoPackage(messageAnswerKontur)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
