@@ -70,6 +70,8 @@ class MainActivity : NfcAct(), KoinComponent {
             } else {
                 bundle.putString("idCard", resultScanInfoCard)
                 bundle.putString("packageArray", dataSourceCard.getPackageArray().toString())
+                bundle.putString("numberCard", dataSourceCard.getValueNumberCard())
+                bundle.putString("balance", dataSourceCard.getValueBalance())
                 bundle.putString("url", url)
                 infoCardFragment.arguments = bundle
                 openFragment(infoCardFragment)

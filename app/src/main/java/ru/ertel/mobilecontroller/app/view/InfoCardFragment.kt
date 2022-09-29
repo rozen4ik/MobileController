@@ -15,6 +15,8 @@ class InfoCardFragment : Fragment() {
 
     private lateinit var idCard: String
     private lateinit var idPackage: String
+    private lateinit var numberCard:String
+    private lateinit var balance: String
     private lateinit var url: String
     private lateinit var packageArray: String
     private lateinit var packages: Array<String>
@@ -27,6 +29,11 @@ class InfoCardFragment : Fragment() {
         idCard = arguments?.getString("idCard").toString()
         url = arguments?.getString("url").toString()
         packageArray = arguments?.getString("packageArray").toString()
+        numberCard = arguments?.getString("numberCard").toString()
+        balance = arguments?.getString("balance").toString()
+        if (balance != "Нет баланса") {
+            balance = "${balance.substringBeforeLast(balance[balance.lastIndex].toString())} руб"
+        }
         if (packageArray != "{Данные не=найдены}") {
             packageArray = packageArray.replace("=", ": ")
             packageArray = packageArray.replace("{", "").replace("}", "")
@@ -39,6 +46,12 @@ class InfoCardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val listPackage: ListView = view.findViewById(R.id.packageList)
+        val textNumberCard: TextView = view.findViewById(R.id.textNumberCard)
+        val textBalance: TextView = view.findViewById(R.id.textBalance)
+
+        textNumberCard.text = "Карта №$numberCard"
+        textBalance.text = "Баланс карты: $balance."
+
         if (packageArray != "{Данные не=найдены}") {
             val adapter = activity?.let {
                 ArrayAdapter(

@@ -8,10 +8,26 @@
     tools:context=".view.InfoCardFragment">
 
     <TextView
+        android:id="@+id/textNumberCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Карта №"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/textBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Баланс карты:"
+
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=" Список услуг"
+        android:layout_marginTop="15dp"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
