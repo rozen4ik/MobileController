@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 import android.widget.TextView
 import ru.ertel.mobilecontroller.gear.NfcAct
 import java.math.BigInteger
@@ -39,8 +38,8 @@ class ScanCardActivity : NfcAct() {
         super.onNewIntent(paramIntent)
         val dataFull = getMAC(intent.getParcelableExtra(NfcAdapter.EXTRA_TAG) as? Tag).replace(":", "")
         textStatusScan.text = "Идет сканирование, не убирайте карту!"
-        val decimalString = BigInteger(dataFull, 16).toString()
-//        val decimalString = dataFull.reversed()
+//        val decimalString = BigInteger(dataFull, 16).toString()
+        val decimalString = "${dataFull[6]}${dataFull[7]}${dataFull[4]}${dataFull[5]}${dataFull[2]}${dataFull[3]}${dataFull[0]}${dataFull[1]}"
         vibroFone()
         textStatusScan.text = "Данные отсканированны!"
         val intent = Intent(this@ScanCardActivity, MainActivity::class.java)

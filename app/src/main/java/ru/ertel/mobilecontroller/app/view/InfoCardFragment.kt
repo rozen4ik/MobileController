@@ -49,7 +49,7 @@ class InfoCardFragment : Fragment() {
         val textNumberCard: TextView = view.findViewById(R.id.textNumberCard)
         val textBalance: TextView = view.findViewById(R.id.textBalance)
 
-        textNumberCard.text = "Карта №$numberCard"
+        textNumberCard.text = "Карта №: $numberCard"
         textBalance.text = "Баланс карты: $balance."
 
         if (packageArray != "{Данные не=найдены}") {

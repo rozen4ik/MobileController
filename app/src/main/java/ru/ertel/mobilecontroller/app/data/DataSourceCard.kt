@@ -46,7 +46,7 @@ class DataSourceCard {
         // Проверка на лицензию, указывается номер лицензии контура,
         // при попытке использовать приложение на другом сервер,
         // поступит сообщение о использовании пиратской версии
-        return message.contains("<attribute name=\"license\"  value=\"1232\" />")
+        return message.contains("<attribute name=\"license\"  value=\"1203\" />")
     }
 
     private fun getValidMessage(message: String): Boolean {
