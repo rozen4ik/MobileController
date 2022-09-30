@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LicenseActivity">
+    tools:context=".view.StartActivity">
 
     <FrameLayout
-        android:id="@+id/placePirateFragments"
+        android:id="@+id/placeDateFragments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"

@@ -1,5 +1,7 @@
 package ru.ertel.mobilecontroller.app.data
 
+import android.util.Log
+
 class DataSourceCard {
 
     private var packagesArray = HashMap<String, String>()
@@ -7,9 +9,9 @@ class DataSourceCard {
     private var balance = ""
     private var numberCard = ""
 
-    fun setMessageInfoPackage(message: String) {
+    fun setMessageInfoPackage(message: String, number: String) {
         if (getAnswerLicense(message)) {
-            numberCard = getNumberCard(message)
+            numberCard = number
             balance = getBalance(message)
             if (getValidMessage(message)) {
                 packages = getPackages(message).split("/>").toTypedArray()
@@ -52,9 +54,13 @@ class DataSourceCard {
     }
 
     private fun getNumberCard(message: String): String {
-        var result = message.substringAfter("<identifier value=\"")
-        result = result.substringBefore("\"")
-        return result
+        if (message.contains("<identifier value=\"")) {
+            var result = message.substringAfter("<identifier value=\"")
+            result = result.substringBefore("\"")
+            return result
+        } else {
+            return "Клиент не найден"
+        }
     }
 
     private fun getBalance(message: String): String {

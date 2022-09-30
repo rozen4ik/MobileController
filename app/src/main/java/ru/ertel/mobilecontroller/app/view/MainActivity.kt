@@ -41,7 +41,7 @@ class MainActivity : NfcAct(), KoinComponent {
             Toast.makeText(this, "ip и порт не настроены", Toast.LENGTH_SHORT).show()
         }
 
-        var resultScanInfoCard = intent?.extras?.getString(ScanCardActivity.SCANINFOCARD)
+        val resultScanInfoCard = intent?.extras?.getString(ScanCardActivity.SCANINFOCARD)
         val dataSourceCard = DataSourceCard()
         val konturController = KonturController()
         var messageInfoCard =
@@ -62,7 +62,7 @@ class MainActivity : NfcAct(), KoinComponent {
 
         if (resultScanInfoCard != null) {
             val url = "$bodyURL/spd-xml-api"
-            updateInfo(konturController, dataSourceCard, url, messageInfoCard)
+            updateInfo(konturController, dataSourceCard, url, messageInfoCard, resultScanInfoCard)
             if (dataSourceCard.getPackageArray().toString() == "{Пиратская=копия}") {
                 val intent = Intent(this@MainActivity, LicenseActivity::class.java)
                 startActivity(intent)
@@ -132,13 +132,14 @@ class MainActivity : NfcAct(), KoinComponent {
         konturController: KonturController,
         dataSourceCard: DataSourceCard,
         url: String,
-        messageInfoCard: String
+        messageInfoCard: String,
+        number: String
     ) {
         runBlocking {
             launch(newSingleThreadContext("MyOwnThread")) {
                 try {
                     messageAnswerKontur = konturController.requestPOST(url, messageInfoCard)
-                    dataSourceCard.setMessageInfoPackage(messageAnswerKontur)
+                    dataSourceCard.setMessageInfoPackage(messageAnswerKontur, number)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
