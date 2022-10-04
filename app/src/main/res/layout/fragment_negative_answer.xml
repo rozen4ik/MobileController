@@ -3,19 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.DemoFragment">
+    android:orientation="vertical"
+    tools:context=".view.NegativeAnswerFragment">
 
     <TextView
-        android:id="@+id/textDemo"
+        android:id="@+id/textNegativeAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Период использования приложения закончился!"
+        android:text=""
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textStyle="bold"
@@ -25,10 +25,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonRepeatActive"
-        android:text="Активировать повторно"
+        android:id="@+id/buttonAct"
         android:layout_margin="8dp"
+        android:text="Активировать повторно"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 
 </LinearLayout>

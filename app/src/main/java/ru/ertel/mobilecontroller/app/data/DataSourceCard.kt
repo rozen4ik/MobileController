@@ -1,6 +1,5 @@
 package ru.ertel.mobilecontroller.app.data
 
-import android.util.Log
 
 class DataSourceCard {
 
@@ -8,8 +7,10 @@ class DataSourceCard {
     private lateinit var packages: Array<String>
     private var balance = ""
     private var numberCard = ""
+    private lateinit var numberTokenKontur: String
 
-    fun setMessageInfoPackage(message: String, number: String) {
+    fun setMessageInfoPackage(message: String, number: String, numberKontur: String) {
+        numberTokenKontur = numberKontur.substringAfterLast("*")
         if (getAnswerLicense(message)) {
             numberCard = number
             balance = getBalance(message)
@@ -46,7 +47,7 @@ class DataSourceCard {
         // Проверка на лицензию, указывается номер лицензии контура,
         // при попытке использовать приложение на другом сервер,
         // поступит сообщение о использовании пиратской версии
-        return message.contains("<attribute name=\"license\"  value=\"1203\" />")
+        return message.contains("<attribute name=\"license\"  value=\"$numberTokenKontur\" />")
     }
 
     private fun getValidMessage(message: String): Boolean {

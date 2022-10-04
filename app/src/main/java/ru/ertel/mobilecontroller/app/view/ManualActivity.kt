@@ -58,7 +58,9 @@ class ManualActivity : AppCompatActivity() {
                 "<client identifier=\"${editNumberCard.text}\">"
             )
             val url = "$bodyURL/spd-xml-api"
-            updateInfoCard(konturController, dataSourceCard, url, messageInfoCard, editNumberCard.text.toString())
+            val set = getSharedPreferences("konturToken", MODE_PRIVATE)
+            val numberKontur = set.getString(StartActivity.SAVE_TOKEN, "no").toString()
+            updateInfoCard(konturController, dataSourceCard, url, messageInfoCard, editNumberCard.text.toString(), numberKontur)
             if (dataSourceCard.getPackageArray().toString() == "{Пиратская=копия}") {
                 val intent = Intent(this@ManualActivity, LicenseActivity::class.java)
                 startActivity(intent)
@@ -111,13 +113,14 @@ class ManualActivity : AppCompatActivity() {
         dataSourceCard: DataSourceCard,
         url: String,
         messageInfoCard: String,
-        number: String
+        number: String,
+        numberKontur: String
     ) {
         runBlocking {
             launch(newSingleThreadContext("MyOwnThread")) {
                 try {
                     messageAnswerKontur = konturController.requestPOST(url, messageInfoCard)
-                    dataSourceCard.setMessageInfoPackage(messageAnswerKontur, number)
+                    dataSourceCard.setMessageInfoPackage(messageAnswerKontur, number, numberKontur)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

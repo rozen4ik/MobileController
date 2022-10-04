@@ -9,25 +9,27 @@ import android.widget.Button
 import android.widget.TextView
 import ru.ertel.mobilecontroller.app.R
 
-class DemoFragment : Fragment() {
+class NegativeAnswerFragment : Fragment() {
 
-    private lateinit var textDemo: TextView
+    private lateinit var textNegativeAnswer: TextView
     private lateinit var btn: Button
-    private lateinit var message: String
+    private lateinit var answer: String
     private lateinit var activateFragment: ActivateFragment
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        message = arguments?.getString("demo").toString()
-        return inflater.inflate(R.layout.fragment_demo, container, false)
+        // Inflate the layout for this fragment
+        answer = arguments?.getString("answerMessage").toString()
+        return inflater.inflate(R.layout.fragment_negative_answer, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        textDemo = view.findViewById(R.id.textDemo)
-        btn = view.findViewById(R.id.buttonRepeatActive)
+        textNegativeAnswer = view.findViewById(R.id.textNegativeAnswer)
+        textNegativeAnswer.text = answer
+        btn = view.findViewById(R.id.buttonAct)
         btn.setOnClickListener {
             activateFragment = ActivateFragment()
             openFragment(activateFragment)
@@ -43,6 +45,12 @@ class DemoFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = DemoFragment()
+        fun newInstance(answerMessage: String): NegativeAnswerFragment {
+            val fragment = NegativeAnswerFragment()
+            val args = Bundle()
+            args.putString("answerMessage", answerMessage)
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

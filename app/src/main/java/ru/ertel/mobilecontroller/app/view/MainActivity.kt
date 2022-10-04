@@ -16,6 +16,7 @@ import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import ru.ertel.mobilecontroller.app.controller.KonturController
 import ru.ertel.mobilecontroller.app.data.DataSourceCard
+import ru.ertel.mobilecontroller.app.view.StartActivity.Companion.SAVE_TOKEN
 import ru.ertel.mobilecontroller.gear.NfcAct
 
 class MainActivity : NfcAct(), KoinComponent {
@@ -62,7 +63,10 @@ class MainActivity : NfcAct(), KoinComponent {
 
         if (resultScanInfoCard != null) {
             val url = "$bodyURL/spd-xml-api"
-            updateInfo(konturController, dataSourceCard, url, messageInfoCard, resultScanInfoCard)
+            val set = getSharedPreferences("konturToken", MODE_PRIVATE)
+            val numberKontur = set.getString(SAVE_TOKEN, "no").toString()
+
+            updateInfo(konturController, dataSourceCard, url, messageInfoCard, resultScanInfoCard, numberKontur)
             if (dataSourceCard.getPackageArray().toString() == "{Пиратская=копия}") {
                 val intent = Intent(this@MainActivity, LicenseActivity::class.java)
                 startActivity(intent)
@@ -133,13 +137,14 @@ class MainActivity : NfcAct(), KoinComponent {
         dataSourceCard: DataSourceCard,
         url: String,
         messageInfoCard: String,
-        number: String
+        number: String,
+        numberKontur: String
     ) {
         runBlocking {
             launch(newSingleThreadContext("MyOwnThread")) {
                 try {
                     messageAnswerKontur = konturController.requestPOST(url, messageInfoCard)
-                    dataSourceCard.setMessageInfoPackage(messageAnswerKontur, number)
+                    dataSourceCard.setMessageInfoPackage(messageAnswerKontur, number, numberKontur)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

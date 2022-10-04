@@ -23,4 +23,19 @@ class KonturController {
         val str = response.body?.string()
         return str.toString()
     }
+
+    fun requestGetToken(url: String): String {
+        val client = OkHttpClient().newBuilder()
+            .build()
+//        val mediaType: MediaType = "applications/json; charset=UTF-8".toMediaType()
+        val request: Request = Request.Builder()
+            .url(url)
+            .get()
+            .addHeader("Content-Type", "application/json; charset=UTF-8")
+            .addHeader("Content-Encoding", "UTF-8")
+            .build()
+        val response = client.newCall(request).execute()
+        val str = response.body?.string()
+        return  str.toString()
+    }
 }
