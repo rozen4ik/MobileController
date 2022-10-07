@@ -16,7 +16,6 @@ class StartActivity : AppCompatActivity() {
         const val SAVE_TOKEN = "save_token"
     }
 
-    private lateinit var bundle: Bundle
     private lateinit var demoFragment: DemoFragment
     private lateinit var activateFragment: ActivateFragment
     private lateinit var dateNow: Calendar
@@ -45,10 +44,18 @@ class StartActivity : AppCompatActivity() {
             val dateDayOfYearNow = dateNow.get(Calendar.DAY_OF_YEAR)
             val dateYearNow = dateNow.get(Calendar.YEAR)
 
-            if ((dateDayOfYearNow < dateDayOfYearEnd!!.toInt()) && (dateYearNow <= dateYearEnd!!.toInt())) {
+            if (dateYearNow < dateYearEnd!!.toInt()) {
                 val intent = Intent(this@StartActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
+            } else if (dateYearNow == dateYearEnd.toInt()) {
+                if (dateDayOfYearNow < dateDayOfYearEnd!!.toInt()) {
+                    val intent = Intent(this@StartActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    openFragment(demoFragment)
+                }
             } else {
                 openFragment(demoFragment)
             }

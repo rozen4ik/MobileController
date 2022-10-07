@@ -72,8 +72,7 @@ class ActivateFragment : Fragment() {
                 val dateDayOfYearNow = dateNow.get(Calendar.DAY_OF_YEAR)
                 val dateYearNow = dateNow.get(Calendar.YEAR)
 
-
-                if ((dateDayOfYearNow < endDayOfYear.toInt()) && (dateYearNow <= endYear.toInt())) {
+                if (dateYearNow < endYear.toInt()) {
                     val saveEndDateToken: SharedPreferences.Editor = daySet.edit()
                     saveEndDateToken.putString(SAVE_TOKEN, "$endDayOfYear/$endYear")
                     saveEndDateToken.commit()
@@ -86,6 +85,24 @@ class ActivateFragment : Fragment() {
                     val intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
                     activity?.finish()
+                } else if (dateYearNow == endYear.toInt()) {
+                    if ((dateDayOfYearNow < endDayOfYear.toInt()) && (dateYearNow <= endYear.toInt())) {
+                        val saveEndDateToken: SharedPreferences.Editor = daySet.edit()
+                        saveEndDateToken.putString(SAVE_TOKEN, "$endDayOfYear/$endYear")
+                        saveEndDateToken.commit()
+
+                        val numberKontur = dataSourceToken.getToken().nameToken.substringAfterLast("*")
+                        val saveKonturToken: SharedPreferences.Editor = settings.edit()
+                        saveKonturToken.putString(SAVE_TOKEN, numberKontur)
+                        saveKonturToken.commit()
+
+                        val intent = Intent(activity, MainActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                    } else {
+                        demoFragment = DemoFragment()
+                        openFragment(demoFragment)
+                    }
                 } else {
                     demoFragment = DemoFragment()
                     openFragment(demoFragment)
