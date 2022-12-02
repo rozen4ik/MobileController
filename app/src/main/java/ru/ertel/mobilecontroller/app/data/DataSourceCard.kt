@@ -87,8 +87,10 @@ class DataSourceCard {
     }
 
     private fun getName(message: String): String {
-        var result = message.substringAfter("description=\"")
-        result = result.substringBefore("\"  used_count")
-        return result
+        var result1 = message.substringAfter("rule_use=\"")
+        result1 = result1.substringBefore("\"  tariff")
+        var result2 = message.substringAfter("description=\"")
+        result2 = result2.substringBefore("\"  used_count")
+        return "$result1\n$result2"
     }
 }
