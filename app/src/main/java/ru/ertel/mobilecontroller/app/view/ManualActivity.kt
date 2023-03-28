@@ -16,6 +16,7 @@ import kotlinx.coroutines.runBlocking
 import ru.ertel.mobilecontroller.app.R
 import ru.ertel.mobilecontroller.app.controller.KonturController
 import ru.ertel.mobilecontroller.app.data.DataSourceCard
+import ru.ertel.mobilecontroller.app.view.SettingsActivity.Companion.SAVE_SETTINGS
 
 class ManualActivity : AppCompatActivity() {
 
@@ -59,7 +60,7 @@ class ManualActivity : AppCompatActivity() {
             )
             val url = "$bodyURL/spd-xml-api"
             val set = getSharedPreferences("konturToken", MODE_PRIVATE)
-            val numberKontur = set.getString(StartActivity.SAVE_TOKEN, "no").toString()
+            val numberKontur = set.getString(SAVE_SETTINGS, "no").toString()
             updateInfoCard(konturController, dataSourceCard, url, messageInfoCard, editNumberCard.text.toString(), numberKontur)
             if (dataSourceCard.getPackageArray().toString() == "{Пиратская=копия}") {
                 val intent = Intent(this@ManualActivity, LicenseActivity::class.java)

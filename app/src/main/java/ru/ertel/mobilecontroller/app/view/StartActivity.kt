@@ -8,13 +8,14 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import ru.ertel.mobilecontroller.app.R
+import ru.ertel.mobilecontroller.app.view.SettingsActivity.Companion.SAVE_SETTINGS
 import java.util.*
 
 class StartActivity : AppCompatActivity() {
 
-    companion object {
-        const val SAVE_TOKEN = "save_token"
-    }
+//    companion object {
+//        const val SAVE_TOKEN = "save_token"
+//    }
 
     private lateinit var demoFragment: DemoFragment
     private lateinit var activateFragment: ActivateFragment
@@ -31,8 +32,8 @@ class StartActivity : AppCompatActivity() {
         settingsToken = getSharedPreferences("konturToken", MODE_PRIVATE)
         settingsDate = getSharedPreferences("endDate", MODE_PRIVATE)
 
-        val date = settingsDate.getString(SAVE_TOKEN, "no")
-        val token = settingsToken.getString(SAVE_TOKEN, "no")
+        val date = settingsDate.getString(SAVE_SETTINGS, "no")
+        val token = settingsToken.getString(SAVE_SETTINGS, "no")
 
         if ((date == "no") && (token == "no")) {
             openFragment(activateFragment)

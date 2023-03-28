@@ -16,7 +16,7 @@ import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import ru.ertel.mobilecontroller.app.controller.KonturController
 import ru.ertel.mobilecontroller.app.data.DataSourceCard
-import ru.ertel.mobilecontroller.app.view.StartActivity.Companion.SAVE_TOKEN
+import ru.ertel.mobilecontroller.app.view.SettingsActivity.Companion.SAVE_SETTINGS
 import ru.ertel.mobilecontroller.gear.NfcAct
 
 class MainActivity : NfcAct(), KoinComponent {
@@ -64,7 +64,7 @@ class MainActivity : NfcAct(), KoinComponent {
         if (resultScanInfoCard != null) {
             val url = "$bodyURL/spd-xml-api"
             val set = getSharedPreferences("konturToken", MODE_PRIVATE)
-            val numberKontur = set.getString(SAVE_TOKEN, "no").toString()
+            val numberKontur = set.getString(SAVE_SETTINGS, "no").toString()
 
             updateInfo(konturController, dataSourceCard, url, messageInfoCard, resultScanInfoCard, numberKontur)
             if (dataSourceCard.getPackageArray().toString() == "{Пиратская=копия}") {

@@ -9,6 +9,27 @@
     tools:context=".view.SettingsActivity">
 
     <TextView
+        android:id="@+id/textDateLicense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Обновить лицензию:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    <EditText
+        android:id="@+id/editLicense"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/saveLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:text="Сохранить" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Введите ip адрес"
@@ -36,9 +57,9 @@
 
     <Button
         android:id="@+id/buttonSaveSettings"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Сохранить адрес " />
+        android:text="Сохранить" />
 
     <TextView
         android:layout_width="match_parent"
