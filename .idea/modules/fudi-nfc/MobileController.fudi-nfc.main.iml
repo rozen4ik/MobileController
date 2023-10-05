@@ -26,6 +26,7 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
+                <arg>$MODULE_DIR$/../../../fudi-nfc/build/intermediates/compile_r_class_jar/debug/R.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/622cd720734360876dd54b4f3a65fbbb/transformed/appcompat-1.4.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/48c3ba0d55141a5f3f877b5508f51994/transformed/jetified-core-ktx-1.7.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/32a5b8474b4a5ece3196163dd0d76f45/transformed/fragment-1.3.6-api.jar</arg>

@@ -1,5 +1,6 @@
 package ru.ertel.mobilecontroller.app.view
 
+import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -8,6 +9,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ru.ertel.mobilecontroller.app.R
 import kotlinx.coroutines.launch
@@ -61,6 +64,11 @@ class MainActivity : NfcAct(), KoinComponent {
             val intent = Intent(this@MainActivity, ScanCardActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        infoCardQR.setOnClickListener {
+            val intent = Intent(this@MainActivity, ScanQRActivity::class.java)
+            checkCameraPermission(intent)
         }
 
         if (resultScanInfoCard != null) {
@@ -124,6 +132,20 @@ class MainActivity : NfcAct(), KoinComponent {
         if (requestCode == 12) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             }
+        }
+    }
+
+    private fun checkCameraPermission(intent: Intent) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.CAMERA), 12)
+        } else {
+            startActivity(intent)
+            finish()
         }
     }
 
