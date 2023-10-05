@@ -24,6 +24,7 @@ class MainActivity : NfcAct(), KoinComponent {
     private val bundle = Bundle()
     private var messageAnswerKontur = ""
     private lateinit var infoCard: Button
+    private lateinit var infoCardQR: Button
     private val infoCardFragment: InfoCardFragment = InfoCardFragment()
     private val startFragment: StartFragment = StartFragment()
 
@@ -34,6 +35,7 @@ class MainActivity : NfcAct(), KoinComponent {
         openFragment(startFragment)
 
         infoCard = findViewById(R.id.infoCard)
+        infoCardQR = findViewById(R.id.infoCardQr)
 
         val settings: SharedPreferences = getSharedPreferences("URL", MODE_PRIVATE)
         val bodyURL = settings.getString(SettingsActivity.SAVE_SETTINGS, "").toString()
